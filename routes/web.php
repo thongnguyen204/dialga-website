@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 include_once 'auth/auth.php';
+include_once 'article/article.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,4 +11,4 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home');
-})->name('home');
+})->middleware('auth')->name('home');
