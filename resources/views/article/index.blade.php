@@ -16,5 +16,6 @@
         <a href="{{ route('articles.show',$article) }}">{{$article->title}}</a>
     </p>
     @endforeach
+    <a href="{{ route('logout') }}">Logout</a>
 </body>
 </html>
