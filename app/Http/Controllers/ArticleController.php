@@ -3,10 +3,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticlePostRequest;
 use App\Models\Article;
+use App\Repositories\ArticleRepository;
 use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
+    /**
+     * @var ArticleRepository
+     */
+    private $articleRepository;
+
+    /**
+     * ArticleController constructor
+     * @package App\Http\Controllers
+     * @param ArticleRepository $articleRepository
+     */
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository = $articleRepository;
+    }
     /**
      * Display a listing of the articles.
      *
@@ -14,7 +29,8 @@ class ArticleController extends Controller
      */
     public function index(): View
     {
-        $articles = Article::all();
+        $articles = $this->articleRepository->paginate();
+
         return view('article.index')->with('articles', $articles);
     }
 
@@ -34,9 +50,12 @@ class ArticleController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function store(ArticlePostRequest $request)
+    public function store(ArticlePostRequest $request): View
     {
+        $this->articleRepository->create($request->getParams());
+        $articles = $this->articleRepository->paginate();
 
+        return view('article.index')->with('articles', $articles);
     }
 
     /**

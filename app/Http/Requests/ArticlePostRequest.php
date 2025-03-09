@@ -25,4 +25,13 @@ class ArticlePostRequest extends FormRequest
             'content' => 'required',
         ];
     }
+
+    public function getParams()
+    {
+        return [
+            'title'   => $this->title,
+            'user_id' => $this->user_id ?? 1,
+            'body'    => $this->body ?? '',
+        ];
+    }
 }
