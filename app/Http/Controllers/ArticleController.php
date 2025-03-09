@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticlePostRequest;
 use App\Models\Article;
 use App\Repositories\ArticleRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ArticleController extends Controller
@@ -98,12 +99,12 @@ class ArticleController extends Controller
      * Remove the specified article from DB.
      *
      * @param  \App\Models\Article  $article
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article): RedirectResponse
     {
         $this->articleRepository->destroy($article);
 
-        return redirect()->route('article.index');
+        return redirect()->route('articles.index');
     }
 }

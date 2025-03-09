@@ -10,11 +10,11 @@
     @endif
 </head>
 <body>
+    <a href="{{ route('articles.create') }}">Create article</a>
     @foreach ($articles as $article)
     <p>
-        {{$article->title}}
+        <a href="{{ route('articles.show',$article) }}">{{$article->title}}</a>
     </p>
     @endforeach
-    <a href="{{ route('articles.create') }}">Create article</a>
 </body>
 </html>
