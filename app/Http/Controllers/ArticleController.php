@@ -39,7 +39,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
         return view('article.create');
     }
@@ -62,20 +62,20 @@ class ArticleController extends Controller
      * Display the specified article.
      *
      * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function show(Article $article)
+    public function show(Article $article): View
     {
-
+        return view('article.show')->with('article', $article);
     }
 
     /**
      * Show the form for editing the specified article.
      *
      * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function edit(Article $article)
+    public function edit(Article $article): View
     {
         return view('article.edit')->with('article', $article);
     }
@@ -83,23 +83,27 @@ class ArticleController extends Controller
     /**
      * Update the specified article in DB.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ArticlePostRequest  $request
      * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function update()
+    public function update(ArticlePostRequest $request, Article $article): View
     {
+        $this->articleRepository->update($article, $request->getParams());
 
+        return view('article.show')->with('article', $article);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified article from DB.
      *
      * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function destroy(Article $article)
     {
+        $this->articleRepository->destroy($article);
 
+        return redirect()->route('article.index');
     }
 }
