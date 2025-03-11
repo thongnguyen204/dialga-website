@@ -1,30 +1,48 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserPostRequest;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
-    public function showForm()
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * UserController constructor
+     * @package App\Http\Controllers
+     * @param \App\Repositories\UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    /**
+     * Show the form for signing up the user.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showForm(): View
     {
         return view('auth.register');
     }
 
-    public function register(Request $request): RedirectResponse
+    /**
+     * Signing up the user.
+     *
+     * @param  \App\Http\Requests\UserPostRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function register(UserPostRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-
-        User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => $request->password,
-        ]);
+        $this->userRepository->create($request->getParams());
 
         return redirect('/login')->with('success', 'Registration successful! Please log in.');
     }
