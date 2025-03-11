@@ -2,6 +2,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ArticlePostRequest extends FormRequest
 {
@@ -26,11 +27,11 @@ class ArticlePostRequest extends FormRequest
         ];
     }
 
-    public function getParams()
+    public function getParams(): array
     {
         return [
             'title'   => $this->title,
-            'user_id' => $this->user_id ?? 1,
+            'user_id' => Auth::id(),
             'body'    => $this->body ?? '',
         ];
     }
