@@ -23,6 +23,7 @@ class ArticleController extends Controller
     {
         $this->articleRepository = $articleRepository;
     }
+
     /**
      * Display a listing of the articles.
      *
