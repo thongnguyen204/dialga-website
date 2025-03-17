@@ -54,10 +54,9 @@ class ArticleController extends Controller
      */
     public function store(ArticlePostRequest $request): View
     {
-        $this->articleRepository->create($request->getParams());
-        $articles = $this->articleRepository->paginate();
+        $article = $this->articleRepository->create($request->getParams());
 
-        return view('article.index')->with('articles', $articles);
+        return view('article.show')->with('article', $article);
     }
 
     /**
