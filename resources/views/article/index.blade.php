@@ -11,11 +11,30 @@
 </head>
 <body>
     <x-layouts.navbar/>
-    <a href="{{ route('articles.create') }}">Create article</a>
-    @foreach ($articles as $article)
-    <p>
-        <a href="{{ route('articles.show',$article) }}">{{$article->title}}</a>
-    </p>
-    @endforeach
+    <div class="container flex justify-center">
+        <!-- <div class="grid grid-cols-2 gap-x-4">
+            @foreach ($articles as $article)
+                <a href="{{ route('articles.show',$article) }}">{{$article->title}}</a>
+                <div>{{$article->user->name}}</div>
+            @endforeach
+        </div> -->
+
+        <table class="table-auto border-separate border-spacing-2 border border-gray-400">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300">Title</th>
+                    <th class="border border-gray-300">Author</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($articles as $article)
+                <tr>
+                    <td class="border border-gray-300"><a href="{{ route('articles.show',$article) }}">{{$article->title}}</a></td>
+                    <td class="border border-gray-300"><div>{{$article->user->name}}</div></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

@@ -10,6 +10,7 @@
     @endif
 </head>
 <body>
+    <x-layouts.navbar/>
     <p>{{$article->title}}</p>
     <p>{{$article->body}}</p>
     <a href="{{ route('articles.edit', $article) }}">Edit article</a>
