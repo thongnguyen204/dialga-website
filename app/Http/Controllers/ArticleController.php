@@ -50,13 +50,13 @@ class ArticleController extends Controller
      * Store a newly created article in DB.
      *
      * @param \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ArticlePostRequest $request): View
+    public function store(ArticlePostRequest $request): RedirectResponse
     {
         $article = $this->articleRepository->create($request->getParams());
 
-        return view('article.show')->with('article', $article);
+        return to_route('articles.show', [$article]);
     }
 
     /**
@@ -86,13 +86,13 @@ class ArticleController extends Controller
      *
      * @param  \App\Http\Requests\ArticlePostRequest  $request
      * @param  \App\Models\Article  $article
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ArticlePostRequest $request, Article $article): View
+    public function update(ArticlePostRequest $request, Article $article): RedirectResponse
     {
-        $this->articleRepository->update($article, $request->getParams());
+        $article = $this->articleRepository->update($article, $request->getParams());
 
-        return view('article.show')->with('article', $article);
+        return to_route('articles.show', [$article]);
     }
 
     /**
@@ -105,6 +105,6 @@ class ArticleController extends Controller
     {
         $this->articleRepository->destroy($article);
 
-        return redirect()->route('articles.index');
+        return to_route('articles.index');
     }
 }
