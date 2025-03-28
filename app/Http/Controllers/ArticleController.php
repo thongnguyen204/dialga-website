@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticlePostRequest;
 use App\Models\Article;
+use App\Models\User;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -34,6 +35,18 @@ class ArticleController extends Controller
         $articles = $this->articleRepository->paginate();
 
         return view('article.index')->with('articles', $articles);
+    }
+
+    /**
+     * Display a listing of the articles by user.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function indexByUser(User $user): View
+    {
+        $articles = $this->articleRepository->getByAttributes(['user_id' => $user->id], 'created_at', 'DESC');
+
+        return view('article.user-index')->with('articles', $articles);
     }
 
     /**
