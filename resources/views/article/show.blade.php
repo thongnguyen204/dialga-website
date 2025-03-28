@@ -13,11 +13,13 @@
     <x-layouts.navbar/>
     <p>{{$article->title}}</p>
     <p>{{$article->body}}</p>
-    <a href="{{ route('articles.edit', $article) }}">Edit article</a>
-    <form action=" {{route('articles.destroy',$article)}}" method="POST">
-        @csrf
-        @method('delete')
-        <button class="" type="submit">Delete</button>
-    </form>
+    @if ($article->user_id == Auth::user()->id)
+        <a href="{{ route('articles.edit', $article) }}">Edit article</a>
+        <form action=" {{route('articles.destroy',$article)}}" method="POST">
+            @csrf
+            @method('delete')
+            <button class="" type="submit">Delete</button>
+        </form>
+    @endif
 </body>
 </html>

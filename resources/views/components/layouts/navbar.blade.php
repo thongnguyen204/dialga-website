@@ -13,7 +13,7 @@
                         <button class="dropbtn rounded-md p-2">{{ Auth::user()->name }}</button>
                         <div class="dropdown-content">
                             <a href="#">Profile</a>
-                            <a href="#">My articles</a>
+                            <a href="{{ route('articlesByUser.index', Auth::user()->id)}}">My articles</a>
                             <a href="{{ route('logout') }}">Logout</a>
                         </div>
                     </div>

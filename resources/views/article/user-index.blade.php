@@ -11,7 +11,7 @@
 </head>
 <body>
     <x-layouts.navbar/>
-    <div class="flex justify-center mt-10 mx-5">
+    <div class="flex justify-center mt-10 mx-1">
         <table class="table-auto border-collapse border border-gray-400 w-full">
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
             <tbody>
                 @foreach ($articles as $article)
                 <tr>
-                    <td class="border border-gray-400 px-1"><a href="{{ route('articles.show',$article) }}">{{$article->title}}</a></td>
+                    <td class="border border-gray-400"><a href="{{ route('articles.show',$article) }}">{{$article->title}}</a></td>
                     <td class="border border-gray-400"><div class="flex justify-center">{{$article->user->name}}</div></td>
                 </tr>
                 @endforeach

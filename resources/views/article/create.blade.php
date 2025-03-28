@@ -10,6 +10,7 @@
     @endif
 </head>
 <body>
+    <x-layouts.navbar/>
     <form class="w-xs" method="POST" action="{{ route('articles.store')}}">
         @csrf
         <!-- Title -->
